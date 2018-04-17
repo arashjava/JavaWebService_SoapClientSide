@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions
+	xmlns:ate="http://arash.tech/Employee/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Employee"
+	targetNamespace="http://arash.tech/Employee/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://arash.tech/Employee/">
+			<xsd:complexType name="employee">
+				<xsd:sequence>
+					<xsd:element name="id" type="xsd:integer" />
+					<xsd:element name="name" type="xsd:string" />
+					<xsd:element name="address" type="ate:address" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="address">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="no" type="xsd:integer" />
+					<xsd:element minOccurs="0" name="street"
+						type="xsd:string" />
+					<xsd:element minOccurs="0" name="apptNo"
+						type="xsd:integer" />
+					<xsd:element minOccurs="0" name="city"
+						type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="getEmployeeRequest"
+				type="ate:getEmployeeRequest" />
+			<xsd:element name="getEmployeeResponse"
+				type="ate:getEmployeeResponse" />
+
+			<xsd:complexType name="getEmployeeRequest">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="employeeId"
+						type="xsd:integer" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="getEmployeeResponse">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" maxOccurs="unbounded"
+						name="employee" type="ate:employee" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="getAllEmployeesRequest"
+				type="ate:getAllEmployeesRequest" />
+			<xsd:element name="getAllEmployeesResponse"
+				type="ate:getAllEmployeesResponse" />
+
+
+			<xsd:complexType name="getAllEmployeesRequest">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="employeeId"
+						type="xsd:integer" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="getAllEmployeesResponse">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" maxOccurs="unbounded"
+						name="employee" type="ate:employee" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="getEmployeeRequest">
+		<wsdl:part element="ate:getEmployeeRequest"
+			name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getEmployeeResponse">
+		<wsdl:part element="ate:getEmployeeResponse"
+			name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getAllEmployeesRequest">
+		<wsdl:part element="ate:getAllEmployeesRequest"
+			name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getAllEmployeesResponse">
+		<wsdl:part element="ate:getAllEmployeesResponse"
+			name="parameters" />
+	</wsdl:message>
+
+
+
+	<wsdl:portType name="EmployeePortType">
+		<wsdl:operation name="getEmployee">
+			<wsdl:input message="ate:getEmployeeRequest" />
+			<wsdl:output message="ate:getEmployeeResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="getAllEmployees">
+			<wsdl:input message="ate:getAllEmployeesRequest" />
+			<wsdl:output message="ate:getAllEmployeesResponse" />
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+	<wsdl:binding name="EmployeeSOAPBinding"
+		type="ate:EmployeePortType">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="getEmployee">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="getEmployeeRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getEmployeeResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getAllEmployees">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="getAllEmployeesRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getAllEmployeesResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+
+
+		</wsdl:operation>
+
+
+	</wsdl:binding>
+	<wsdl:service name="EmployeeService">
+		<wsdl:port binding="ate:EmployeeSOAPBinding"
+			name="EmployeePort">
+			<soap:address
+				location="http://localhost:8080/EmployeeService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
